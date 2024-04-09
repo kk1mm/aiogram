@@ -1,16 +1,45 @@
-# This is a sample Python script.
+# API_URL = 'https://api.telegram.org/bot'
+CAT_URL= 'https://api.thecatapi.com/v1/images/search'
+BOT_TOKEN = '6341022120:AAGT-sin1dWs_f8nTuT0WkO3L6a91JlEQvw'
+from aiogram import Bot, Dispatcher
+from aiogram.filters import Command
+from aiogram.types import Message
+from random import choice
+from aiogram.types import ContentType
+from aiogram import F
+# Вместо BOT TOKEN HERE нужно вставить токен вашего бота, полученный у @BotFather
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+# Создаем объекты бота и диспетчера
+bot = Bot(token=BOT_TOKEN)
+dp = Dispatcher()
+# Этот хэндлер будет срабатывать на команду "/start"
+@dp.message(Command(commands='start'))
+async def process_start_command(message: Message):
+    await message.answer('Привет!\nМеня зовут Эхо-бот!\nНапиши мне что-нибудь')
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Этот хэндлер будет срабатывать на команду "/help"
+@dp.message(Command(commands='help'))
+async def process_help_command(message: Message):
+    await message.answer(
+        'Напиши мне что-нибудь и в ответ '
+        'я пришлю тебе твое сообщение'
+    )
 
 
-# Press the green button in the gutter to run the script.
+# Этот хэндлер будет срабатывать на любые ваши сообщения,
+# кроме команд "/start" и "/help"
+@dp.message()
+async def send_echo(message: Message):
+    try:
+        await message.send_copy(chat_id=message.chat.id)
+    except TypeError:
+        await message.reply(
+            text='Данный тип апдейтов не поддерживается '
+                 'методом send_copy'
+        )
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    dp.run_polling(bot)
