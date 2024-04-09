@@ -6,6 +6,7 @@ from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.types import ContentType
 from aiogram import F
+from random import choice
 
 API_URL = 'https://api.telegram.org/bot'
 #BOT_TOKEN = '5424991242:AAGwomxQz1p46bRi_2m3V7kvJlt5RjK9xr0'
