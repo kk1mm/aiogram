@@ -1,6 +1,6 @@
 # API_URL = 'https://api.telegram.org/bot'
 CAT_URL= 'https://api.thecatapi.com/v1/images/search'
-BOT_TOKEN = '6341022120:AAGT-sin1dWs_f8nTuT0WkO3L6a91JlEQvw'
+from .env import BOT_TOKEN
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message
